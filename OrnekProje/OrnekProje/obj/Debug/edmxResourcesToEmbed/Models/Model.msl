@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OrnekProjeModelStoreContainer" CdmEntityContainer="OrnekProjeEntities">
+    <EntitySetMapping Name="Dersler">
+      <EntityTypeMapping TypeName="OrnekProjeModel.Dersler">
+        <MappingFragment StoreEntitySet="Dersler">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DersAdi" ColumnName="DersAdi" />
+          <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+          <ScalarProperty Name="OgrenciSayisi" ColumnName="OgrenciSayisi" />
+          <ScalarProperty Name="Donem" ColumnName="Donem" />
+          <ScalarProperty Name="OlusturmaTarihi" ColumnName="OlusturmaTarihi" />
+          <ScalarProperty Name="OlusturanKullanici" ColumnName="OlusturanKullanici" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sayfalar">
+      <EntityTypeMapping TypeName="OrnekProjeModel.Sayfalar">
+        <MappingFragment StoreEntitySet="Sayfalar">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SayfaAdi" ColumnName="SayfaAdi" />
+          <ScalarProperty Name="Link" ColumnName="Link" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="OlusturmaTarihi" ColumnName="OlusturmaTarihi" />
+          <ScalarProperty Name="OlusturanKullanici" ColumnName="OlusturanKullanici" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SinavHaftasi">
+      <EntityTypeMapping TypeName="OrnekProjeModel.SinavHaftasi">
+        <MappingFragment StoreEntitySet="SinavHaftasi">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BaslangicTarihi" ColumnName="BaslangicTarihi" />
+          <ScalarProperty Name="BitisTarihi" ColumnName="BitisTarihi" />
+          <ScalarProperty Name="OlusturmaTarihi" ColumnName="OlusturmaTarihi" />
+          <ScalarProperty Name="OlusturanKullanici" ColumnName="OlusturanKullanici" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Siniflar">
+      <EntityTypeMapping TypeName="OrnekProjeModel.Siniflar">
+        <MappingFragment StoreEntitySet="Siniflar">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SinifAdi" ColumnName="SinifAdi" />
+          <ScalarProperty Name="KontejyanSayisi" ColumnName="KontejyanSayisi" />
+          <ScalarProperty Name="OlusturmaTarihi" ColumnName="OlusturmaTarihi" />
+          <ScalarProperty Name="OlusturanKullanici" ColumnName="OlusturanKullanici" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spMenuList" FunctionName="OrnekProjeModel.Store.spMenuList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OrnekProjeModel.spMenuList_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SayfaAdi" ColumnName="SayfaAdi" />
+          <ScalarProperty Name="Link" ColumnName="Link" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="OlusturmaTarihi" ColumnName="OlusturmaTarihi" />
+          <ScalarProperty Name="OlusturanKullanici" ColumnName="OlusturanKullanici" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Sinavlar">
+      <EntityTypeMapping TypeName="OrnekProjeModel.Sinavlar">
+        <MappingFragment StoreEntitySet="Sinavlar">
+          <ScalarProperty Name="OTarih" ColumnName="OTarih" />
+          <ScalarProperty Name="Saat" ColumnName="Saat" />
+          <ScalarProperty Name="SinifId" ColumnName="SinifId" />
+          <ScalarProperty Name="DersId" ColumnName="DersId" />
+          <ScalarProperty Name="SınavHaftasiId" ColumnName="SınavHaftasiId" />
+          <ScalarProperty Name="SınavTarihi" ColumnName="SınavTarihi" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kullanicilar">
+      <EntityTypeMapping TypeName="OrnekProjeModel.Kullanicilar">
+        <MappingFragment StoreEntitySet="Kullanicilar">
+          <ScalarProperty Name="Parola" ColumnName="Parola" />
+          <ScalarProperty Name="Mail" ColumnName="Mail" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

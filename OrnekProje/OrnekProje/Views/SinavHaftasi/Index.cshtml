@@ -1,0 +1,171 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+ 
+<script>
+
+    var app = angular.module('myApp', []);
+    app.filter("mydate", function () {
+        var re = /\/Date\(([0-9]*)\)\//;
+        return function (x) {
+            var m = x.match(re);
+            if (m) return new Date(parseInt(m[1]));
+            else return null;
+        };
+    });
+ 
+    app.controller('formCtrl', function ($scope, $http) {
+        $http({
+            method: 'GET',
+            url: '/SinavHaftasi/GetSinavHaftasi'
+        }).success(function (result) {
+            $scope.SinavHaftasi = result;
+        });
+        $scope.edit = function (Id, BaslangicTarihi, BitisTarihi) {
+            $scope.Id = Id;
+            $('#BaslangicTarihi').val(BaslangicTarihi);
+            $('#BitisTarihi').val(BitisTarihi);
+        }
+        $scope.delete = function (idx) {
+            var requestData = {
+                Id: idx
+            };
+            $http({
+                method: 'POST',
+                url: '/SinavHaftasi/GetDeletedById',
+                data: JSON.stringify(requestData),
+                dataType: "json",
+
+            }).success(function (data) {
+                console.log(data);
+                if (data == "1")
+                    $(location).attr('href', "/SinavHaftasi");
+                else alert(data);
+            })
+            .error(function (data) {
+                console.log(data);
+            })
+        } 
+    });
+    
+    function OnSaveClick() {
+        var BasTar = $('#BaslangicTarihi').val();
+        var BitTar = $('#BitisTarihi').val();
+
+        var Id = 0;
+        if (BasTar == "") { alert('Başangıç tarihi seçiniz.'); return; }
+        if (BitTar == "") { alert('Bitiş tarihi seçiniz.'); return; }
+
+        var requestData = {
+            Id: Id, BasTar: BasTar, BitTar: BitTar
+        };
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Save", "SinavHaftasi")',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(requestData),
+            dataType: "json",
+            success: function (data) {
+
+                if (data == "0") { // Error
+                    alert('Sistemde bir hata oluştu.Lütfen sistem yöneticinizle görüşünüz.'); //alert('Sistemde bir hata oluştu.Lütfen sistem yöneticinizle görüşünüz.');
+                }
+                else { // Success
+
+                    $('#BaslangicTarihi').val(""); $('#BitisTarihi').val("");
+                    $(location).attr('href', "/SinavHaftasi");
+                    alert('İşleminiz gerçekleştirilmiştir.');
+
+                }
+            },
+            error: function () {
+                alert('Sistemde bir hata oluştu.Lütfen sistem yöneticinizle görüşünüz.');  //alert('Hata oluştu.Lütfen Sistem yöneticinizle görüşünüz.');
+            }
+        });
+    }
+
+</script>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-12">
+                <div ng-app="myApp" ng-controller="formCtrl">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            Sınav Haftası
+                        </header>
+                        <form action="javascript:;" class="login-form" method="post" ng-submit="Save()" name="myForm">
+                            <div class="panel-body">
+                                <div class="form-group clearfix">
+                                    <label class="control-label col-md-2">BaslangicTarihi</label>
+                                    <div class="col-md-3">
+                                        <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" class="input-append date dpYears">
+                                            @Html.TextBox("BaslangicTarihi", null, new {  @class = "form-control", @placeholder = "Başlangiç Tarihi" })
+                                            <span class="input-group-btn add-on">
+                                                <button class="btn btn-danger" type="button"><i class="fa fa-calendar"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <label class="control-label col-md-2">BitisTarihi</label>
+                                    <div class="col-md-3">
+                                        <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" class="input-append date dpYears">
+                                            @Html.TextBox("BitisTarihi", null, new { @Value = "", @class = "form-control", @placeholder ="Bitiş Tarihi" })
+                                            <span class="input-group-btn add-on">
+                                                <button class="btn btn-danger" type="button"><i class="fa fa-calendar"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <label class="control-label col-md-2"></label>
+                                    <div class="col-md-3">
+                                        <input id="btnSave" type="submit" value="Kaydet" class="btn btn-success btn-block" onclick="OnSaveClick()" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form> 
+                    </section>
+                    <section class="panel">
+                        <header class="panel-heading">
+                            Sınav Haftası
+                        </header>
+                        <table class="table table-bordered table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Başlangıç Tarihi</th>
+                                    <th>Bitiş Tarihi</th>
+                                    <th> </th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in SinavHaftasi">
+                                    
+                                    <td width="40%">{{x.BaslangicTarihi | mydate | date: 'dd-MM-yyyy'}}</td>
+                                    <td width="40%">{{x.BitisTarihi | mydate | date: 'dd-MM-yyyy'}}</td>
+                                    <td>
+                                        <a class="btn btn-danger btn-icon-only btn-xs" href="javascript:;" ng-click="delete(x.Id)">
+                                            <i class='fa fa-trash-o fa-lg icone-vermelho wht-color'></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-info btn-icon-only btn-xs" href="javascript:;" ng-click="edit(x.Id,x.BaslangicTarihi,x.BitisTarihi)">
+                                            <i class='fa fa-pencil-square-o fa-lg icone-vermelho wht-color'></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

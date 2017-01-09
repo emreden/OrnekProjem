@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OrnekProjeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Dersler">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DersAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Aciklama" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="OgrenciSayisi" Type="Int16" />
+    <Property Name="Donem" Type="Int16" />
+    <Property Name="OlusturmaTarihi" Type="DateTime" Precision="0" />
+    <Property Name="OlusturanKullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Sayfalar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SayfaAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Link" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="OlusturmaTarihi" Type="DateTime" Precision="0" />
+    <Property Name="OlusturanKullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="SinavHaftasi">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BaslangicTarihi" Type="DateTime" Precision="0" />
+    <Property Name="BitisTarihi" Type="DateTime" Precision="0" />
+    <Property Name="OlusturmaTarihi" Type="DateTime" Precision="0" />
+    <Property Name="OlusturanKullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Siniflar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SinifAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="KontejyanSayisi" Type="Int16" />
+    <Property Name="OlusturmaTarihi" Type="DateTime" Precision="0" />
+    <Property Name="OlusturanKullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="OrnekProjeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Dersler" EntityType="Self.Dersler" />
+    <EntitySet Name="Sayfalar" EntityType="Self.Sayfalar" />
+    <EntitySet Name="SinavHaftasi" EntityType="Self.SinavHaftasi" />
+    <EntitySet Name="Siniflar" EntityType="Self.Siniflar" />
+    <FunctionImport Name="spMenuList" ReturnType="Collection(OrnekProjeModel.spMenuList_Result)" />
+    <EntitySet Name="Sinavlar" EntityType="OrnekProjeModel.Sinavlar" />
+    <EntitySet Name="Kullanicilar" EntityType="OrnekProjeModel.Kullanicilar" />
+  </EntityContainer>
+  <ComplexType Name="spMenuList_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="SayfaAdi" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Link" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Icon" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="OlusturmaTarihi" Nullable="true" />
+    <Property Type="String" Name="OlusturanKullanici" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="Sinavlar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SınavTarihi" Type="DateTime" Precision="0" />
+    <Property Name="SınavHaftasiId" Type="Int32" />
+    <Property Name="DersId" Type="Int32" />
+    <Property Name="SinifId" Type="Int32" />
+    <Property Name="Saat" Type="Int32" />
+    <Property Name="OTarih" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Kullanicilar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Parola" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>
