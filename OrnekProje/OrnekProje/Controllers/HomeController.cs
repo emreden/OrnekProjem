@@ -24,7 +24,7 @@ namespace OrnekProje.Controllers
                 Session.Add("S_UserId", nusers.Id);
                 Session.Add("S_UserName", nusers.Mail);
 
-                return Redirect("/Dersler");
+                return Redirect("/Default");
             }
             return Redirect("/Home");
         }
